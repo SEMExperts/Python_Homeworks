@@ -1,21 +1,35 @@
 def parse_parameters(str):
-    lst = str[str.find('?') + 1:].split('&')
-    key = []
-    value = []
-    for i in range(len(lst)):
-        key.append(lst[i].split('=')[0])
-        value.append(lst[i].split('=')[1])
+    try:
+        lst = str[str.find('?') + 1:].split('&')
+        key = []
+        value = []
+        for i in range(len(lst)):
+            key.append(lst[i].split('=')[0])
+            value.append(lst[i].split('=')[1])
 
-    return dict(zip(key, value))
+        return dict(zip(key, value))
+    except IndexError:
+        return {}
 
 
-# def parse_cookies(query: str) -> dict:
-#     return {}
+def parse_cookies(str):
+    try:
+        str = str.replace(';', '')
+        lst = str.split()
+        key = []
+        value = []
+        for i in range(len(lst)):
+            key.append(lst[i].split('=')[0])
+            value.append(lst[i].split('=')[1])
+
+        return dict(zip(key, value))
+    except IndexError:
+        return {}
 
 
 if __name__ == '__main__':
     # Tests for function "parse_parameters"
-    print(parse_parameters('https://example.com/path/to/page?name=ferret&color=purple'))
+    print(parse_parameters('https://example.com/'))
     print(parse_parameters('http://example.com?product=1234&utm_source=google'))
     print(parse_parameters('https://example.com/products/women?category=dresses&color=green'))
     print(parse_parameters('https://example.com/products/women/dresses/green.html?limit=20&sessionid=123'))
@@ -26,8 +40,16 @@ if __name__ == '__main__':
     print(parse_parameters('http://www.example.com?country=fr'))
     print(parse_parameters('https://www.onlinestor.com?product=socks&color=black&size=m'))
 
+    # Tests for function "parse_cookies"
+    print(parse_cookies(''))
+    print(parse_cookies('name=Dima;'))
+    print(parse_cookies('NAME=VALUE; expires=DATE; path=PATH; domain=DOMAIN_NAME;'))
+    print(parse_cookies('NAME=VALUE;'))
+    print(parse_cookies('NAME1=OPAQUE_STRING1; NAME2=OPAQUE_STRING2'))
+    print(parse_cookies('CUSTOMER=WILE_E_COYOTE; path=/; expires=Wednesday,'))
+    print(parse_cookies('PART_NUMBER=ROCKET_LAUNCHER_0001;'))
+    print(parse_cookies('CUSTOMER=WILE_E_COYOTE; PART_NUMBER=ROCKET_LAUNCHER_0001; SHIPPING=FEDEX'))
+    print(parse_cookies('PART_NUMBER=RIDING_ROCKET_0023;'))
+    print(parse_cookies('PART_NUMBER=RIDING_ROCKET_0023; PART_NUMBER=ROCKET_LAUNCHER_0001'))
 
 
-    # # Tests for function "parse_cookies"
-    # assert parse_cookies('') == {}
-    # assert parse_cookies('name=Dima;') == {'name': 'Dima'}
