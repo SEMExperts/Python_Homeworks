@@ -1,6 +1,6 @@
-def parse_parameters(str):
+def parse_parameters(query: str) -> dict:
     try:
-        lst = str[str.find('?') + 1:].split('&')
+        lst = query[query.find('?') + 1:].split('&')
         key = []
         value = []
         for i in range(len(lst)):
@@ -12,10 +12,10 @@ def parse_parameters(str):
         return {}
 
 
-def parse_cookies(str):
+def parse_cookies(query: str) -> dict:
     try:
-        str = str.replace(';', ' ')
-        lst = str.split()
+        query = query.replace(';', ' ')
+        lst = query.split()
         key = []
         value = []
         for i in range(len(lst)):
