@@ -14,7 +14,7 @@ def parse_parameters(str):
 
 def parse_cookies(str):
     try:
-        str = str.replace(';', '')
+        str = str.replace(';', ' ')
         lst = str.split()
         key = []
         value = []
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     # Tests for function "parse_cookies"
     print(parse_cookies(''))
     print(parse_cookies('name=Dima;'))
-    print(parse_cookies('NAME=VALUE; expires=DATE; path=PATH; domain=DOMAIN_NAME;'))
+    print(parse_cookies('NAME=VALUE;expires=DATE;path=PATH;domain=DOMAIN_NAME;'))
     print(parse_cookies('NAME=VALUE;'))
     print(parse_cookies('NAME1=OPAQUE_STRING1; NAME2=OPAQUE_STRING2'))
     print(parse_cookies('CUSTOMER=WILE_E_COYOTE; path=/; expires=Wednesday,'))
